@@ -1,16 +1,40 @@
 {
-	"scripts": {
-		"build": "webpack --config webpack.config.js"
-	},
-	"dependencies": {
-		"@ssantanuberaa/componentx": "^1.0.1",
-		"axios": "^0.21.1",
-		"css-loader": "^5.0.1",
-		"javasx": "^2.0.5",
-		"path": "^0.12.7"
-	},
-	"devDependencies": {
-		"webpack": "^5.11.1",
-		"webpack-cli": "^4.3.0"
-	}
+  "_from": "@ssantanuberaa/componentx",
+  "_id": "@ssantanuberaa/componentx@1.0.1",
+  "_inBundle": false,
+  "_integrity": "sha512-bkU0j9/bDEHbbagDRrbHyXIXdTeTrBjEM/AAqD34Wjc0jhQeDcWDtLsImbh1Yp0Kna2pnOgDUkl5VzFQYBdbFw==",
+  "_location": "/@ssantanuberaa/componentx",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@ssantanuberaa/componentx",
+    "name": "@ssantanuberaa/componentx",
+    "escapedName": "@ssantanuberaa%2fcomponentx",
+    "scope": "@ssantanuberaa",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@ssantanuberaa/componentx/-/componentx-1.0.1.tgz",
+  "_shasum": "88c512c1fd0401d9d5441b9198c23eeb271b4d40",
+  "_spec": "@ssantanuberaa/componentx",
+  "_where": "/home/neo/repos/xdemo",
+  "author": {
+    "name": "ssantanuberaa"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "axios": "^0.21.1",
+    "javasx": "^2.0.5"
+  },
+  "deprecated": false,
+  "description": "",
+  "main": "index.js",
+  "name": "@ssantanuberaa/componentx",
+  "version": "1.0.2"
 }
