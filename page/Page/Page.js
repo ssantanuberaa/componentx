@@ -1,5 +1,5 @@
 import x from "x";
-import { Column, Row, Expanded, ScrollView, Div } from "../core";
+import { Column, Row, Expanded, ScrollView, Div } from "../../core";
 import css from "./Page.css";
 export default x({
 	name: "Page",

@@ -1,5 +1,3 @@
 import Header from "./Header/Header.js";
 
-export {
-	Header
-};
+export {Header};
