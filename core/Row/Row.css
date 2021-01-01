@@ -1,0 +1,6 @@
+.row.expand{
+	width: 100%;
+}
+.row.shrink{
+	width: auto;
+}

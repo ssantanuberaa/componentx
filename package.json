@@ -1,0 +1,16 @@
+{
+	"scripts": {
+		"build": "webpack --config webpack.config.js"
+	},
+	"dependencies": {
+		"@ssantanuberaa/componentx": "^1.0.1",
+		"axios": "^0.21.1",
+		"css-loader": "^5.0.1",
+		"javasx": "^2.0.5",
+		"path": "^0.12.7"
+	},
+	"devDependencies": {
+		"webpack": "^5.11.1",
+		"webpack-cli": "^4.3.0"
+	}
+}

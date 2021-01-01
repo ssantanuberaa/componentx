@@ -1,0 +1,19 @@
+*{
+	box-sizing: border-box;
+}
+body{
+	padding: 0;
+	margin: 0;
+}
+.drawer_trigger{
+	display: flex;
+	height: inherit;
+	justify-content: center;
+	align-items: center;
+	padding-left: 10px;
+	padding-right: 10px;
+	cursor: pointer;
+}
+.drawer_trigger .material-icons{
+	color: #fff;
+}

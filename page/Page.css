@@ -1,0 +1,23 @@
+.page{
+	height: 100vh !important;
+	width: 100% !important;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+.page_content{
+	height: 100vh;
+	overflow-y: hidden;
+}
+.page_content>header{
+	height: 40px;
+	position: sticky;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+.page_content .page_body{
+	height: calc(100vh - 40px) !important;
+}
+.page_body>div:first-child{
+	width: 100%;
+}
