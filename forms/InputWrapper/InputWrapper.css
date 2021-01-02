@@ -1,14 +1,14 @@
 .input_wrapper{
 	position: relative;
 	width: 100% !important;
-	height: 30px !important;
 }
 .input_container{
-	height: 30px;
+	height: 30px !important;
 	position: relative;
 	display: flex;
 	border-bottom: 1px solid #757575;
 	cursor: pointer;
+	width: 100%;
 }
 .icon_prefix_container{
 	height: 100%;
@@ -69,7 +69,7 @@
 }
 .input_wrapper_info_section{
 	display: flex;
-	height: 20px;
+	height: 20px !important;
 	width: 100%;
 }
 .input_wrapper_info_text{
