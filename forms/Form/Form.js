@@ -28,7 +28,11 @@ export default x({
 		if(inputs !== undefined){
 			inputs.forEach(function(input){
 				input.$on("value", function(data){
-					this.formData[input.name] = data;
+					let inputName = input.props.name;
+					if(inputName == undefined){
+						inputName = input.name;
+					}
+					this.formData[inputName] = data;
 				}.bind(this));
 			}.bind(this));
 		}
