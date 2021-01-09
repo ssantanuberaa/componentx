@@ -30,12 +30,12 @@ export default x({
 		return structure.element;
 	},
 	mounted: function(){
-		if(window['x-style'] !== undefined){
-			let style = "";
-			let node = document.createElement("style");
-			node.setAttribute("type", "text/css");
-			node.textContent = window['x-style'];
-			document.documentElement.firstChild.appendChild(node);
-		}
+		// if(window['x-style'] !== undefined){
+		// 	let style = "";
+		// 	let node = document.createElement("style");
+		// 	node.setAttribute("type", "text/css");
+		// 	node.textContent = window['x-style'];
+		// 	document.documentElement.firstChild.appendChild(node);
+		// }
 	}
 });
