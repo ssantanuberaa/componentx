@@ -15,6 +15,8 @@ export default x({
 		setChild(child){
 			if(typeof child == "string"){
 				this.element.textContent = child;
+			}else if(child.element !== undefined){
+				this.element.appendChild(child);
 			}
 		}
 	}

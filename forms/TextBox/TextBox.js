@@ -196,6 +196,7 @@ export default x({
 		onValueChange: function(newValue, oldValue){
 		},
 		validateData(){
+			this.error = ! this.inputWrapper.validateData(this.value, this.props.validations);
 		},
 	}
 });

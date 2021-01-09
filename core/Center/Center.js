@@ -9,11 +9,24 @@ export default x({
 		style.height = "inherit";
 		style.width = "inherit";
 		style.display = "flex";
-		style.justifyContent = "center";
-		style.alignItems = "center";
 		return element;
 	},
 	mounted(){
-		this.element.appendChild(this.props.child.element);
+		if(this.props.child !== undefined){
+			this.element.appendChild(this.props.child.element);
+		}else if(this.props.text !== undefined){
+			this.element.textContent = this.props.text;
+		}
+
+		let d = this.props.direction;
+		let style = this.element.style;
+		if(d == undefined || d == "both"){
+			style.justifyContent = "center";
+			style.alignItems = "center";
+		}else if(d == "horizontal"){
+			style.justifyContent = "center";
+		}else if(d == "vertical"){
+			style.alignItems = "center";
+		}
 	},
 });

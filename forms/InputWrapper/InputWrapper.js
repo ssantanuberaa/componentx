@@ -244,7 +244,6 @@ export default x({
 			}));
 		},
 		validateData(data, validations){
-			return true;
 			let hasError = false;
 			let keys = Object.keys(validations);
 			for(let i=0; i<keys.length; i++){
