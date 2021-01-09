@@ -20,12 +20,12 @@ export default x({
 			required: this.props.required,
 			onValueChange: function(value){
 				that.value = value;
-				this.onValueChange(value);
-				this.$emit("value", value);
-				if(this.props.onValueChange !== undefined){
-					this.props.onValueChange(value);
+				that.onValueChange(value);
+				that.$emit("value", value);
+				if(that.props.onValueChange !== undefined){
+					that.props.onValueChange(value);
 				}
-			}.bind(this),
+			},
 		});
 		this.passwordVisibilityNode = new MaterialIcon({
 			child: "visibility"

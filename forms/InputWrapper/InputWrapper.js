@@ -1,5 +1,7 @@
 import x from "x";
+import { validateFormData } from "../../lib/common.js";
 import { Column, Div, MaterialIcon, Empty, Row, Text } from "../../core";
+import TextCounter from "../TextCounter/TextCounter.js";
 import css from "./InputWrapper.css";
 
 export default x({
@@ -78,10 +80,7 @@ export default x({
 			child: new Empty({}),
 		});
 
-		this.counterContainer = new Div({
-			classNames: "counter_container",
-			child: new Empty({}),
-		});
+		this.counterContainer = new TextCounter({});
 
 		let dom = new Column({
 			classNames: "input_wrapper",
@@ -191,14 +190,10 @@ export default x({
 			}
 		},
 		setCounter(first, second){
-			if (second == undefined) {
-				this.counterContainer.setChild(first);
-			}else{
-				this.counterContainer.setChild(first + "/" + second);
-			}
+			this.counterContainer.setCounter(first, second);
 		},
 		removeCounter(){
-			this.counterContainer.setChild("");
+			this.counterContainer.removeCounter();
 		},
 		// -------------------------------------------
 		
@@ -244,35 +239,9 @@ export default x({
 			}));
 		},
 		validateData(data, validations){
-			let hasError = false;
-			let keys = Object.keys(validations);
-			for(let i=0; i<keys.length; i++){
-				let validationName = keys[i];
-				if (validationName == "required") {
-					if (data == "" || data == undefined || data == null) {
-						hasError = true;
-						this.setError(validations.required.message);
-						return false;
-					}
-				}else if (validationName == "email") {
-					const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-					if (!pattern.test(data)){
-						hasError = true;
-						this.setError(validations.email.message);
-					}
-				}else if (validationName == "number") {
-					let d = Number(data);
-					if (isNaN(d) == true) {
-						hasError = true;
-						this.setError(validations.number.message);
-					}
-				}
-			}
-			if (hasError == true) {
-				return false;
-			}else{
-				this.removeError();	
-				return true;
+			let check = validateFormData(data, validations);
+			if(typeof check == "string"){
+				this.setError(check);
 			}
 		},
 	}
