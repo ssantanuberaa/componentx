@@ -9,7 +9,7 @@ export default x({
 	data: {
 		icon: null,
 		disabled: false,
-		buttonTextNode: ""
+		buttonTextNode: null
 	},
 	render(){
 		let button = document.createElement("button");
@@ -19,8 +19,16 @@ export default x({
 		return button;
 	},
 	mounted(){
-		this.setMaterialIcon(this.props.material_icon);
-		this.setButtonContent(this.props.text);
+		this.icon = new MaterialIcon({
+			child: this.props.material_icon
+		});
+		this.element.appendChild(this.icon.element);
+		// Button text --
+		if (typeof this.props.text == "string") {
+			this.buttonTextNode = document.createElement("span");
+			this.buttonTextNode.textContent = this.props.text;
+			this.element.appendChild(this.buttonTextNode);
+		}
 		// Watching --
 		this.element.addEventListener("click", function(event){
 			if(this.props.onClick !== undefined){
@@ -32,29 +40,6 @@ export default x({
 	},
 	methods: {
 		onClick: function(event){},
-		setMaterialIcon: function(icon){
-			if(icon == undefined){
-				if(this.props.material_icon == undefined){
-					return;
-				}
-				icon = this.props.material_icon;
-			}
-			this.icon = new MaterialIcon({
-				child: this.props.material_icon
-			});
-			this.element.appendChild(this.icon.element);
-		},
-		setButtonContent: function(content){
-			if(content == undefined){
-				content = this.props.text;
-			}
-			// Button text --
-			if (typeof content == "string") {
-				this.buttonTextNode = document.createElement("span");
-				this.buttonTextNode.textContent = content;
-				this.element.appendChild(this.buttonTextNode);
-			}
-		},
 		addLoading(){
 			let loading = document.createElement("div");
 			loading.classList.add("button_loader");

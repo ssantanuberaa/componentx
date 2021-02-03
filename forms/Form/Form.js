@@ -17,7 +17,16 @@ export default x({
 
 		if(this.props.trigger !== undefined){
 			this.props.trigger.$on("click", function(event){
-				if(this.props.onSubmit !== undefined){
+				// Validate each input field --
+				let hasError = false;
+				this.props.inputs.forEach((input)=>{
+					if(input.validateData !== undefined){
+						if(input.validateData() !== true){
+							hasError = false;
+						}
+					}
+				});
+				if(hasError == false && this.props.onSubmit !== undefined){
 					this.props.onSubmit(this.formData);	
 				}
 				this.onSubmit(this.formData);

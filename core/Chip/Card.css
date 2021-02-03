@@ -1,0 +1,25 @@
+.chip{
+	border-radius: 15px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border: 1px solid #333;
+	margin-right: 20px;
+	height: 30px;
+	width: auto;
+	cursor: pointer;
+}
+.chip>div{
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.chip .material-icons{
+	font-size: 16px;
+	margin-right: 10px;
+}
+.chip{
+	font-size: 16px;
+}
+.selected{
+	background: #ccc;
+}
