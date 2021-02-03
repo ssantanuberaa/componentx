@@ -5,7 +5,7 @@ export default x({
 		formData: {}
 	},
 	render(){
-		let element = document.createElement("form");
+		let element = document.createElement("div");
 		return element;
 	},
 	mounted(){
@@ -22,14 +22,15 @@ export default x({
 				this.props.inputs.forEach((input)=>{
 					if(input.validateData !== undefined){
 						if(input.validateData() !== true){
-							hasError = false;
+							hasError = true;
 						}
 					}
 				});
-				if(hasError == false && this.props.onSubmit !== undefined){
+				if(hasError == false){
 					this.props.onSubmit(this.formData);	
+					this.onSubmit(this.formData);
+					this.$emit("submit", this.formData);
 				}
-				this.onSubmit(this.formData);
 			}.bind(this));
 		}
 

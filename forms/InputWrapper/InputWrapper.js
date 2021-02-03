@@ -242,6 +242,11 @@ export default x({
 			let check = validateFormData(data, validations);
 			if(typeof check == "string"){
 				this.setError(check);
+				return false;
+			}else if(check === false){
+				return false;
+			}else{
+				return true;
 			}
 		},
 	}

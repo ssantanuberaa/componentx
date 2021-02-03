@@ -7,12 +7,13 @@ export default x({
 	css: css,
 	data:{
 		passwordVisibilityNode: null,
-		textboxNode: null,
-		textVisibile: false
+		textbox: null,
+		textVisibile: false,
+		error: false,
 	},
 	render(){
 		let that = this;
-		this.textboxNode = new TextBox({
+		this.textbox = new TextBox({
 			classNames: "password_box",
 			material_icon: "lock",
 			label: this.props.label,
@@ -30,9 +31,9 @@ export default x({
 		this.passwordVisibilityNode = new MaterialIcon({
 			child: "visibility"
 		});		
-		this.textboxNode.setSuffix(this.passwordVisibilityNode);
+		this.textbox.setSuffix(this.passwordVisibilityNode);
 
-		return this.textboxNode.element;
+		return this.textbox.element;
 	},
 	mounted(){
 		// Add Event Listener --
@@ -48,22 +49,25 @@ export default x({
 	},
 	methods: {
 		setError(errorMessage){
-			this.textboxNode.setError(errorMessage);
+			this.textbox.setError(errorMessage);
 		},
 		removeError(){
-			this.textboxNode.removeError();
+			this.textbox.removeError();
 		},
 		showText(){
-			this.textboxNode.inputNode.setAttribute("type", "text");
+			this.textbox.inputNode.setAttribute("type", "text");
 			this.passwordVisibilityNode.setIcon("visibility_off");
 			this.textVisibile = true;
 		},
 		hideText(){
-			this.textboxNode.inputNode.setAttribute("type", "password");
+			this.textbox.inputNode.setAttribute("type", "password");
 			this.passwordVisibilityNode.setIcon("visibility");
 			this.textVisibile = false;
 		},
 		onValueChange: function(){},
-		validateData(){},	
+		validateData(){
+			this.error = !this.textbox.validateData(this.value, this.props.validations);
+			return !this.error;
+		},
 	}
 });
