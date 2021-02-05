@@ -80,7 +80,27 @@ export default x({
 			this.inputWrapper.blur();
 		}.bind(this));
 		this.inputNode.addEventListener("input", function(event){
+			this.value_changed(event.target.value);
+		}.bind(this));
+		this.inputNode.addEventListener("keyup", function(event){
+			if(this.props.onKeyup !== undefined){
+				this.props.onKeyup(this.value, event);
+			}
+		}.bind(this));
+		this.inputNode.addEventListener("change", function(event){
 			let value = event.target.value;
+			this.value_changed(value);
+			if (value == "" || value == undefined || value == null) {
+				this.inputWrapper.controlLabelPosition(false);
+			}else{
+				setTimeout(function(){
+					this.inputWrapper.controlLabelPosition(true);	
+				}.bind(this), 100);
+			}
+		}.bind(this));
+	},
+	methods: {
+		value_changed(value){
 			if (this.props.format == "numeric") {
 				let num = Number(value);
 				if (isNaN(num) == true) {
@@ -118,21 +138,14 @@ export default x({
 			}
 			if(hasError){
 				this.show_info_section();
+			}else{
+				this.removeError();
+				this.hide_info_section();
 			}
 			if(this.props.onInput !== undefined){
 				this.onInput(this.value);	
-			}			
-		}.bind(this));
-		this.inputNode.addEventListener("keyup", function(event){
-			if(this.props.onKeyup !== undefined){
-				this.props.onKeyup(this.value, event);
 			}
-		}.bind(this));
-		this.inputNode.addEventListener("change", function(event){
-			alert("okay");
-		});
-	},
-	methods: {
+		},
 		setValue(value){
 			if (this.disabled == true) {
 				return;

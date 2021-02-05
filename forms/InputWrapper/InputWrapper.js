@@ -120,7 +120,6 @@ export default x({
 	},
 	methods: {
 		setError(errorMessage){
-			console.log("Setting Error : " + this.info_visibility);
 			this.removeHelp();
 			this.showing_error = true;
 			if(errorMessage == undefined){
@@ -133,7 +132,6 @@ export default x({
 			this.infoText.setChild(errorMessage);
 		},
 		removeError(){
-			console.log("Removing Error : " + this.info_visibility);
 			this.error = false;
 			this.showing_error = false;
 			this.element.classList.remove("error");
@@ -141,14 +139,12 @@ export default x({
 			this.infoText.setChild("");
 		},
 		setHelp(helpMessage){
-			console.log("Setting Help : " + this.info_visibility);
 			this.removeError();
 			this.showing_help = true;
 			this.infoText.setChild(helpMessage);
 			this.infoText.element.classList.add("help");
 		},
 		removeHelp(){
-			console.log("Removing Help");
 			this.showing_help = false;
 			this.infoText.setChild("");
 			this.infoText.element.classList.remove("help");
