@@ -1,6 +1,7 @@
 .input_wrapper{
 	position: relative;
 	width: 100% !important;
+	padding-bottom: 15px;
 }
 .input_container{
 	height: 30px !important;
@@ -69,25 +70,47 @@
 }
 .input_wrapper_info_section{
 	display: flex;
-	height: 20px !important;
 	width: 100%;
 }
 .input_wrapper_info_text{
 	flex: 1;
 }
 /* Error */
-.input_wrapper_info_text.error{
+.input_wrapper_info_text{
 	font-size: 14px;
 	font-weight: 400;
-	color: #F44336;
 	margin-top: 4px;
 }
-/* Help */
+.input_wrapper_info_text.error{
+	color: #F44336;
+}
 .input_wrapper_info_text.help{
-	font-size: 14px;
-	font-weight: 400;
 	color: #03a9f4;
 }
+/* Help */
+@keyframes expand{
+	0%{
+		height: 0;
+	}
+	100%{
+		height: 17px;
+	}
+}
+@keyframes collapse{
+	0%{
+		height: 17px;
+	}
+	100%{
+		height: 0;
+	}
+}
+.input_wrapper_info_text.hiding_info{
+	animation: collapse 100ms ease-out;
+}
+.input_wrapper_info_text.showing_info{
+	animation: expand 100ms ease-out;
+}
+
 /* Counter */
 .counter_container{
 	font-size: 14px;
@@ -117,7 +140,7 @@
 
 .input_wrapper_label.raised{
 	position: absolute;
-	top: -17px;
+	top: -21px;
 	left: 0px;
 	bottom: unset;
 	color: #505050;

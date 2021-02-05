@@ -19,7 +19,12 @@ export default x({
 		bar: null,
 		infoSection: null,
 		infoText: null,
-		counterContainer: null
+		counterContainer: null,
+		info_visibility: false,
+
+		showing_help: false,
+		showing_error: false,
+		showing_info: false,
 	},
 	render(){
 		// Label --
@@ -110,40 +115,62 @@ export default x({
 				if(this.props.onLabelClick !== undefined){
 					this.props.onLabelClick(event);	
 				}				
-			}.bind(this));	
+			}.bind(this));
 		}		
 	},
 	methods: {
 		setError(errorMessage){
+			console.log("Setting Error : " + this.info_visibility);
+			this.removeHelp();
+			this.showing_error = true;
 			if(errorMessage == undefined){
 				errorMessage = "";
 			}
 			this.error = true;
 			this.error_message = errorMessage;
 			this.element.classList.add("error");
-			this.infoText.element.classList.remove("help");
 			this.infoText.element.classList.add("error");
 			this.infoText.setChild(errorMessage);
 		},
 		removeError(){
+			console.log("Removing Error : " + this.info_visibility);
 			this.error = false;
+			this.showing_error = false;
 			this.element.classList.remove("error");
 			this.infoText.element.classList.remove("error");
 			this.infoText.setChild("");
 		},
 		setHelp(helpMessage){
+			console.log("Setting Help : " + this.info_visibility);
+			this.removeError();
+			this.showing_help = true;
 			this.infoText.setChild(helpMessage);
-			if(this.error){
-				this.infoText.element.classList.remove("error");	
-			}			
 			this.infoText.element.classList.add("help");
 		},
 		removeHelp(){
+			console.log("Removing Help");
+			this.showing_help = false;
+			this.infoText.setChild("");
 			this.infoText.element.classList.remove("help");
-			if(this.error){
-				this.setError(this.error_message);
-			}else{
-				this.removeError();
+		},
+		show_info_section(){
+			if(this.info_visibility == false){
+				this.showing_info = true;
+				this.infoText.element.classList.add("showing_info");
+				this.info_visibility = true;
+				setTimeout(function(){
+					this.infoText.element.classList.remove("showing_info");
+				}.bind(this), 100);
+			}
+		},
+		hide_info_section(){
+			if(this.info_visibility == true){
+				this.showing_info = false;
+				this.infoText.element.classList.add("hiding_info");
+				setTimeout(function(){
+					this.info_visibility = false;
+					this.infoText.element.classList.remove("hiding_info");
+				}.bind(this), 100);
 			}
 		},
 		enable(){

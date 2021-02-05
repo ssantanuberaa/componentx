@@ -50,6 +50,10 @@ export default x({
 			this.inputWrapper.playBarAnimation(true);
 			this.setCounter(this.value.length, this.props.max_char)
 			if (this.props.help_text !== undefined) {
+				if(this.error == true){
+					this.removeError();
+				}
+				this.show_info_section();
 				this.setHelp(this.props.help_text);
 			}
 			if(this.props.onFocus !== undefined){
@@ -59,6 +63,7 @@ export default x({
 		this.inputNode.addEventListener("blur", function(event){
 			this.focused = false;
 			this.removeHelp();
+			// pppp
 			this.inputWrapper.playBarAnimation(false);
 			if (this.inputNode.value == "" || this.inputNode.value == undefined || this.inputNode.value == null) {
 				this.inputWrapper.controlLabelPosition(false);
@@ -66,7 +71,9 @@ export default x({
 				this.inputWrapper.controlLabelPosition(true);
 			}
 			this.inputWrapper.removeCounter();
-			this.validateData();
+			if(this.validateData()){
+				this.hide_info_section();
+			}
 			if(this.props.onBlur !== undefined){
 				this.props.onBlur();	
 			}			
@@ -95,18 +102,6 @@ export default x({
 				}else{
 					this.setCounter(value.length, this.props.max_char);
 					this.value = value;
-
-					if(this.props.max_char !== undefined && value.length > this.props.max_char){
-						// Set Error --
-						if(!this.error){
-							this.setError("More than " + this.props.max_char + " character is not allowed !");
-						}
-					}else{
-						// Remove Error --
-						if(this.error){
-							this.removeError();
-						}
-					}
 					this.onValueChange(this.value);
 					if(this.props.onValueChange !== undefined){
 						this.props.onValueChange(this.value);
@@ -115,7 +110,15 @@ export default x({
 					this.$emit("value", this.value);
 				}
 			}
-			this.validateData();
+			// Validate data --
+			let hasError = !this.validateData();
+			if(this.props.max_char !== undefined && value.length > this.props.max_char){
+				hasError = true;
+				this.setError("More than " + this.props.max_char + " character is not allowed !");
+			}
+			if(hasError){
+				this.show_info_section();
+			}
 			if(this.props.onInput !== undefined){
 				this.onInput(this.value);	
 			}			
@@ -125,6 +128,9 @@ export default x({
 				this.props.onKeyup(this.value, event);
 			}
 		}.bind(this));
+		this.inputNode.addEventListener("change", function(event){
+			alert("okay");
+		});
 	},
 	methods: {
 		setValue(value){
@@ -152,6 +158,7 @@ export default x({
 			this.$emit("value", this.value);
 		},
 		setError(errorMessage){
+			this.removeHelp();
 			this.error = true;
 			this.inputWrapper.setError(errorMessage);
 		},
@@ -160,10 +167,25 @@ export default x({
 			this.inputWrapper.removeError();
 		},
 		setHelp(helpText){
-			this.inputWrapper.setHelp(helpText);
+			this.removeError();
+			if(this.inputWrapper.showing_help == false){
+				this.inputWrapper.setHelp(helpText);	
+			}
 		},
 		removeHelp(){
-			this.inputWrapper.removeHelp();
+			if(this.inputWrapper.showing_help == true){
+				this.inputWrapper.removeHelp();
+			}
+		},
+		show_info_section(){
+			if(this.inputWrapper.showing_info === false){
+				this.inputWrapper.show_info_section();
+			}
+		},
+		hide_info_section(){
+			if(this.inputWrapper.showing_info === true){
+				this.inputWrapper.hide_info_section();
+			}
 		},
 		enable(){
 			this.disabled = false;
@@ -176,6 +198,7 @@ export default x({
 			this.element.classList.add("disabled");
 			this.inputNode.setAttribute("disabled", "disabled");
 			this.removeError();
+			this.hide_info_section();
 			this.inputWrapper.disable();
 		},
 		setPrefix(prefixNode){

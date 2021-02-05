@@ -19,6 +19,7 @@ export default x({
 		return button;
 	},
 	mounted(){
+		// Icon --
 		this.icon = new MaterialIcon({
 			child: this.props.material_icon
 		});
@@ -52,10 +53,18 @@ export default x({
 			this.enable();
 			this.element.innerHTML = "";
 			if(this.props.material_icon !== undefined){
-				this.setMaterialIcon();
+				this.icon = new MaterialIcon({
+					child: this.props.material_icon
+				});
+				this.element.appendChild(this.icon.element);
 			}
 			if (this.props.text !== undefined) {
-				this.setButtonContent();
+				// Button text --
+				if (typeof this.props.text == "string") {
+					this.buttonTextNode = document.createElement("span");
+					this.buttonTextNode.textContent = this.props.text;
+					this.element.appendChild(this.buttonTextNode);
+				}
 			}
 		},
 		disable(){
