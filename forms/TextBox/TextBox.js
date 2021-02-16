@@ -45,6 +45,9 @@ export default x({
 			this.inputNode.setAttribute("placeholder", this.props.placeholder);
 		}
 		this.inputNode.addEventListener("focus", function(event){
+			if(this.focused == true){
+				return;
+			}
 			this.focused = true;
 			this.inputWrapper.controlLabelPosition(true);
 			this.inputWrapper.playBarAnimation(true);
@@ -61,9 +64,9 @@ export default x({
 			}			
 		}.bind(this));
 		this.inputNode.addEventListener("blur", function(event){
+			console.log("oops");
 			this.focused = false;
 			this.removeHelp();
-			// pppp
 			this.inputWrapper.playBarAnimation(false);
 			if (this.inputNode.value == "" || this.inputNode.value == undefined || this.inputNode.value == null) {
 				this.inputWrapper.controlLabelPosition(false);
@@ -219,6 +222,9 @@ export default x({
 		},
 		setSuffix(suffixNode){
 			this.inputWrapper.setSuffix(suffixNode);
+		},
+		setInputPrefix(prefixNode){
+			this.inputWrapper.setInputPrefix(prefixNode);
 		},
 		focus(){
 			this.inputNode.focus();

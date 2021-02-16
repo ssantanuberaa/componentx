@@ -13,14 +13,27 @@ export default x({
 	},
 	methods:{
 		appendChild(child){
+			if(child == undefined){
+				return;
+			}
 			this.element.appendChild(child.element);
 		},
 		setDimension(props){
-			if(this.props.width != undefined){
-				this.element.style.width = this.props.width + "px";
+			let width = this.props.width;
+			let height = this.props.height;
+			if(width != undefined){
+				if(typeof width == "string"){
+					this.element.style.width = this.props.width;
+				}else if(!isNaN(width)){
+					this.element.style.width = this.props.width + "px";	
+				}
 			}
-			if(this.props.height != undefined){
-				this.element.style.height = this.props.height + "px";
+			if(height != undefined){
+				if(typeof height == "string"){
+					this.element.style.height = this.props.height;
+				}else if(!isNaN(height)){
+					this.element.style.height = this.props.height + "px";	
+				}
 			}
 		},
 	}

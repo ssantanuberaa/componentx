@@ -19,10 +19,15 @@ export default x({
 		this.appendChildren(this.props.children);
 	},
 	methods: {
+		prependChild: function(child){
+			if(child.element != undefined){
+				this.element.insertBefore(child.element, this.element.firstChild);
+			}
+		},
 		appendChild: function(child){
 			if(child.element != undefined){
 				this.element.appendChild(child.element);	
-			}			
+			}
 		},
 		appendChildren: function(children){
 			if(children != undefined && children.length > 0){

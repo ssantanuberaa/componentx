@@ -1,11 +1,10 @@
 .textbox{
 	width: 100%;
+	height: inherit;
 }
 .textbox input{
 	width: 100%;
 	font-size: 16px;
-	padding-bottom: 3px;
-	padding-bottom: 3px;
 	display: block;
 	flex: 1;
 	border: none;

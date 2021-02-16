@@ -1,6 +1,6 @@
 import x from "x";
 import { validateFormData } from "../../lib/common.js";
-import { Column, Div, MaterialIcon, Empty, Row, Text } from "../../core";
+import { Column, Div, MaterialIcon, Empty, Row, Text, Expanded } from "../../core";
 import TextCounter from "../TextCounter/TextCounter.js";
 import css from "./InputWrapper.css";
 
@@ -25,6 +25,8 @@ export default x({
 		showing_help: false,
 		showing_error: false,
 		showing_info: false,
+
+		input_field_wrapper_com: null
 	},
 	render(){
 		// Label --
@@ -42,7 +44,7 @@ export default x({
 
 		// Icon --
 		if(this.props.material_icon == undefined){
-			this.icon = new Empty({});
+			this.icon = new Div({});
 		}else{
 			this.icon = new Row({
 				shrink: true,
@@ -70,14 +72,24 @@ export default x({
 					classNames: "field_container",
 					children: [
 						this.label,
-						new Div({
+						new Row({
 							classNames: "input_field",
-							child: this.props.child,
+							children: [
+								new Expanded({
+									child: this.props.child
+								}),
+							],
+							onInit: function(com){
+								this.input_field_wrapper_com = com;
+							}.bind(this),
 						})
 					]
 				}),
 				this.bar
-			]
+			],
+			onInit: function(com){
+				com.element.setAttribute("tabindex", 1);
+			}
 		});
 
 		this.infoText = new Div({
@@ -108,17 +120,31 @@ export default x({
 		if (this.props['expand-collapse-icon'] == true) {
 			this.element.classList.add("showExpand");
 		}
-		// Watching --
-		if(this.props.label !== undefined){
-			this.label.element.addEventListener("click", function(event){
-				this.focus();
+		// Focus event --
+		this.inputContainer.element.addEventListener("focus", function(event){
+			if(this.props.onFocus !== undefined){
+				this.props.onFocus(this);
+			}
+			this.focus();
+			if(this.props.label !== undefined){
 				if(this.props.onLabelClick !== undefined){
 					this.props.onLabelClick(event);	
-				}				
-			}.bind(this));
-		}		
+				}
+			}
+		}.bind(this));
+
+		// Blur event --
+		this.inputContainer.element.addEventListener("blur", function(event){
+			if(this.props.onBlur !== undefined){
+				this.props.onBlur(this);
+			}
+			this.blur();
+		}.bind(this));
 	},
 	methods: {
+		setInputPrefix: function(prefixCom){
+			this.input_field_wrapper_com.prependChild(prefixCom);
+		},
 		setError(errorMessage){
 			this.removeHelp();
 			this.showing_error = true;
@@ -178,8 +204,8 @@ export default x({
 		setPrefix(prefixNode){
 			if(prefixNode.nodeType === Node.ELEMENT_NODE){
 				this.icon.element.appendChild(prefixNode);
-			}else{
-				this.icon.appendChild(prefixNode);
+			}else if(prefixNode.element !== undefined){
+				this.icon.element.appendChild(prefixNode.element);
 			}			
 		},
 		setSuffix(suffixNode){
@@ -187,11 +213,16 @@ export default x({
 				this.inputContainer.element.appendChild(suffixNode);
 			}else{
 				this.inputContainer.element.appendChild(suffixNode.element);
-			}			
+			}
 		},
 		focus: function(){
 			if (this.props['expand-collapse-icon'] == true) {
 				this.inputContainer.element.classList.add("expand");
+			}
+		},
+		blur(){
+			if (this.props['expand-collapse-icon'] == true) {
+				this.inputContainer.element.classList.remove("expand");
 			}
 		},
 		controlLabelPosition(forceRaised){
@@ -239,12 +270,6 @@ export default x({
 				cancelable : false,
 				detail : data
 			}));
-		},
-		
-		blur(){
-			if (this.props['expand-collapse-icon'] == true) {
-				this.inputContainer.element.classList.remove("expand");
-			}
 		},
 		addLoading(){
 			bar.classList.add("barAnimation");
