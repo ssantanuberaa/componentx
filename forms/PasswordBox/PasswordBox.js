@@ -1,5 +1,9 @@
 import x from "x";
 import MaterialIcon from "../../core/MaterialIcon/MaterialIcon.js";
+import SizedBox from "../../core/SizedBox/SizedBox.js";
+import Card from "../../core/Card/Card.js";
+import Text from "../../core/Text/Text.js";
+import Div from "../../core/Div/Div.js";
 import TextBox from "../TextBox/TextBox.js";
 import css from "./PasswordBox.css";
 export default x({
@@ -14,7 +18,6 @@ export default x({
 	render(){
 		let that = this;
 		this.textbox = new TextBox({
-			classNames: "password_box",
 			material_icon: "lock",
 			label: this.props.label,
 			help_text: this.props.help_text,
@@ -28,12 +31,28 @@ export default x({
 				}
 			},
 		});
+		let el = new Div({
+			classNames: "password_box",
+			children: [
+				this.textbox,
+				new SizedBox({width: "100%", height: "20px"}),
+				new Card({
+					elevation: 0,
+					background: "pink",
+					height: "300px",
+					width: "100%",
+					paddingAll: 20,
+					child: new Text({child: "Hello"}),
+				}),
+			]
+		});
+			
 		this.passwordVisibilityNode = new MaterialIcon({
 			child: "visibility"
 		});		
 		this.textbox.setSuffix(this.passwordVisibilityNode);
 
-		return this.textbox.element;
+		return el.element;
 	},
 	mounted(){
 		// Add Event Listener --
